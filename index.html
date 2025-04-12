@@ -224,18 +224,28 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>krofied</title>
   <style>
+
+    body {
+      cursor: url("/source/cursor/write(1).png")
+    }
+    /* 保证body和html的高度充满屏幕 */
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-      color: #fff;
-      overflow: hidden;
+      height: 100%;  /* 保证页面高度占满屏幕 */
+      overflow: hidden;  /* 禁止滚动条 */
     }
 
-    /* 设置背景渐变 */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* 背景设置 */
     .background {
       position: fixed;
       top: 0;
@@ -245,25 +255,21 @@
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
-      z-index: -1; /* 确保背景图在后面 */
+      z-index: -1;  /* 背景位于最底层 */
     }
 
-    /* 渐变背景动画 */
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
-
-    /* 文本居中 */
+    /* 内容区域居中 */
     .centered {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      position: fixed; /* 使用固定定位 */
+      top: 50%;  /* 垂直居中 */
+      left: 50%; /* 水平居中 */
+      transform: translate(-50%, -50%);  /* 确保完全居中 */
       text-align: center;
+      color: #fff;  /* 字体颜色 */
+      z-index: 1;  /* 确保内容位于背景之上 */
     }
 
+    /* 标题样式 */
     .title {
       font-size: 3.5rem;
       font-weight: bold;
@@ -271,6 +277,7 @@
       margin-bottom: 20px;
     }
 
+    /* 副标题样式 */
     .subtitle {
       font-size: 1.2rem;
       font-style: italic;
@@ -278,6 +285,7 @@
       margin-bottom: 40px;
     }
 
+    /* 按钮样式 */
     .button {
       background: #00ffe7;
       color: #000;
@@ -297,18 +305,139 @@
       box-shadow: 0 0 25px #00ffe7;
       transform: scale(1.05);
     }
+
+     /* 光标样式 */
+    
+
+   
+
+
+    /* 光标样式 */
+    .typed-cursor {
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #00ffe7;
+      animation: blink 0.7s step-end infinite;
+      display: inline; /* 确保光标与文本同行 */
+    }
+
+    @keyframes blink {
+      50% { 
+        opacity: 0; 
+      }
+    }
   </style>
+
+  <!-- 引入Typed.js库 -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
 </head>
 <body>
-  <div class="background"></div> <!-- 背景层 -->
+  <!-- 背景层 -->
+  <div class="background"></div>
+
+  <!-- 内容居中 -->
   <div class="centered">
-    <div class="title">Hi, I'm krofied</div>
+    <div class="title">
+      <span id="typed-output"></span>
+    </div>
     <div class="subtitle">✨ Building sparks of ideas in a digital galaxy ✨</div>
     <a class="button" href="/2005.github.io/archives/">🚀 进入博客</a>
   </div>
+  
+
+  <script>
+    // 初始化 Typed.js 打字机效果
+    var options = {
+      strings: ["Hi, I'm krofied", "Welcome to my blog!", "Let's create something amazing!"],
+      typeSpeed: 100,  // 打字速度
+      backSpeed: 50,   // 删除速度
+      backDelay: 1000, // 删除后的延迟时间
+      startDelay: 500, // 启动前的延迟时间
+      loop: true,      // 循环
+      showCursor: true // 显示光标
+    };
+
+    var typed = new Typed("#typed-output", options);
+  </script>
+
+  <!-- 星空粒子容器 -->
+<div id="tsparticles"></div>
+
+<!-- 引入 tsParticles -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+<!-- 初始化星空效果 -->
+<script>
+  tsParticles.load("tsparticles", {
+    fullScreen: {
+      enable: true,
+      zIndex: -1
+    },
+    background: {
+      color: "#0f2027" // 星空底色
+    },
+    particles: {
+      number: {
+        value: 160,
+        density: {
+          enable: true,
+          area: 800
+        }
+      },
+      color: {
+        value: "#ffffff"
+      },
+      shape: {
+        type: "circle"
+      },
+      opacity: {
+        value: 0.7,
+        random: true
+      },
+      size: {
+        value: 1.5,
+        random: true
+      },
+      move: {
+        direction: "none",
+        enable: true,
+        outModes: {
+          default: "bounce"
+        },
+        speed: 0.3
+      }
+    },
+    interactivity: {
+      events: {
+        onHover: {
+          enable: true,
+          mode: "grab"
+        },
+        onClick: {
+          enable: true,
+          mode: "repulse"
+        }
+      },
+      modes: {
+        grab: {
+          distance: 120,
+          links: {
+            opacity: 0.3
+          }
+        },
+        repulse: {
+          distance: 200
+        }
+      }
+    }
+  });
+  </script>
+
+
+
 </body>
 </html>
-
 
               </div>
             </div>
