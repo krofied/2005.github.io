@@ -1,0 +1,29 @@
+.fancy-title {
+  font-size: 48px;
+  font-weight: 900;
+  text-align: center;
+  background: linear-gradient(90deg, #ff4e50, #f9d423, #1dd1a1, #5f27cd);
+  background-size: 400% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 8s ease infinite;
+  padding: 20px 0;
+  margin: 40px 0;
+  text-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.2),
+    -2px -2px 4px rgba(255, 255, 255, 0.1);
+  border-bottom: 2px solid #ddd;
+  position: relative;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
